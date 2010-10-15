@@ -11,6 +11,12 @@ Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque
 
 USAGE
 
+First, obtain a CSV export from your LibraryThing collection
+
+  http://www.librarything.com/more/import
+
+Then:
+
 $ nlpltc your-lt-export.csv > catalogue.tex
 $ pdflatex catalogue.tex
 
