@@ -24,7 +24,9 @@ That will produce catalogue.pdf
 
 REQUIREMENTS
 
-You'll need the htmlentities gem
+LaTeX!
+
+You will also need the htmlentities gem
 
 $ sudo gem install htmlentities
 
