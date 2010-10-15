@@ -3,24 +3,6 @@
 # Generate a nice-looking printed LibraryThing catalogue
 #
 # William Denton <wtd@pobox.com>
-#
-# Written for the Hackfest at Access 2010 (15 October 2010, Winnipeg MB)
-# http://access2010.lib.umanitoba.ca/node/3
-#
-# Thanks to Hackfest project partners:
-# Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque
-#
-# Usage:
-#
-# $ nlpltc your-lt-export.csv > catalogue.tex
-# $ pdflatex catalogue.tex
-#
-# That will produce catalogue.pdf
-
-# TO DO
-# Set the fonts the way Wendy says
-#  (sans serif for author/title)
-# Do a subject listing, by tag
 
 require 'csv'
 require 'erb'
