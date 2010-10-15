@@ -1,0 +1,71 @@
+\documentclass{article}
+
+\title{Your Title Goes Here}
+\author{As generated from LibraryThing\\With Ruby, ERB, and \LaTeX}
+\date{} % Leave empty for no date, or fill in yourself
+
+\usepackage{longtable}
+\usepackage[margin=2.5cm]{geometry}
+
+\leftskip 0.25in
+\parindent -0.25in
+
+\begin{document}
+
+\maketitle
+
+\section{Author Listing}
+
+\begin{longtable}{p{4.5in} l}
+
+<% items.sort_by{ |a| [ a[2], a[0].gsub(/^(The |A |An )/, '') ]}.each do |i| %>
+
+<% ddc    = i[5] || "" %>
+<% title  = coder.decode(i[0]).gsub(/&/, 'and') %>
+<% author = coder.decode(i[2]).gsub(/&/, 'and') || "[unknown]" %>
+<% publication_info = coder.decode(i[7]) .gsub(/&/, 'and') || "" %>
+<% tags = coder.decode(i[15]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
+
+<% if author == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= author %>}}}<% end %>
+\hspace{2em}\textsf{<%= title %>}
+\newline
+<% unless publication_info == "" %>\textit{\hspace{1em}<%= publication_info %>}\newline<% end %>
+\hspace{1em}<% unless tags == "" %>\textsc{<%= tags %>}<% end %>
+
+<% lastauthor = author %>
+
+&
+
+<%= ddc %> \\\
+
+<% end %>
+
+\end{longtable}
+
+\newpage
+
+\section{Classified listing}
+
+\noindent
+
+<% items.sort{|a, b| a[5] <=> b[5] }.each do |i| %>
+
+<% ddc    = i[5] || "" %>
+<% title  = coder.decode(i[0]).gsub(/&/, 'and') %>
+<% author = coder.decode(i[2]).gsub(/&/, 'and') || "[unknown]" %>
+<% publication_info = coder.decode(i[7]) .gsub(/&/, 'and') || "" %>
+<% tags = coder.decode(i[15]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
+
+<%= ddc %>
+\newline
+<% if author == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= author %>}}}<% end %>
+\hspace{2em}\textsf{<%= title %>}
+\newline
+<% unless publication_info == "" %>\textit{<%= publication_info %>}\newline<% end %>
+<% unless tags == "" %>\textsc{<%= tags %>}<% end %>
+
+<% lastauthor = author %>
+
+<% end %>
+
+\end{document}

@@ -1,0 +1,100 @@
+#!/usr/bin/ruby -w
+
+# Generate a nice-looking printed LibraryThing catalogue
+#
+# William Denton <wtd@pobox.com>
+#
+# Written for the Hackfest at Access 2010 (15 October 2010, Winnipeg MB)
+# http://access2010.lib.umanitoba.ca/node/3
+#
+# Thanks to Hackfest project partners:
+# Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque
+#
+# Usage:
+#
+# $ nlpltc your-lt-export.csv > catalogue.tex
+# $ pdflatex catalogue.tex
+#
+# That will produce catalogue.pdf
+
+# MIT License:
+#
+# Copyright (c) 2010 William Denton
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+# TO DO
+# Set the fonts the way Wendy says
+#  (sans serif for author/title)
+# Do a subject listing, by tag
+
+require 'csv'
+require 'erb'
+
+require 'rubygems'
+require 'htmlentities'
+
+csv = ARGV[0]
+if csv.nil?
+  puts "Please specify a LibraryThing CSV export file"
+  exit
+end
+
+tex_template = "template.tex.erb"
+
+# Layout of the LibraryThing CSV export file:
+# (Note that this is slightly different from the Excel file!)
+#
+#  0 'TITLE',
+#  1 "'AUTHOR (first, last)'",
+#  2 "'AUTHOR (last, first)'",
+#  3 'DATE',
+#  4 'LCC',
+#  5 'DDC',
+#  6 'ISBN',
+#  7 "'PUBLICATION INFO'",
+#  8 'COMMENTS',
+#  9 'RATING',
+# 10 'REVIEW',
+# 11 "'ENTRY DATE'",
+# 12 'COPIES',
+# 13 'SUBJECTS',
+# 14 'TAGS'
+
+rows = CSV.open(csv, 'r', ',')
+
+items = []
+
+rows.each do |r|
+  # Clean up a bit, and push into an array
+  if r[2].nil? then r[2] = "(Anonymous)" end
+  if r[5].nil? then r[5] = "FIC" end
+  items.push(r)
+end
+
+coder = HTMLEntities.new
+
+lastauthor = ""
+
+tex = IO.read(tex_template)
+template = ERB.new(tex, 0, "%<>")
+catalogue = template.result
+puts catalogue
+
+
