@@ -9,6 +9,9 @@ Written for the Hackfest at Access 2010 (15 October 2010, Winnipeg MB)
 Thanks to Hackfest project partners:
 Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque
 
+Chris Charles found and fixed a bug at Hackfest at Code4Lib North (6
+May 2011, Hamilton ON).
+
 USAGE
 
 First, obtain a CSV export from your LibraryThing collection
@@ -34,4 +37,6 @@ TO DO
 
 * Make it look the way Wendy specified (fonts/indenting)
 * Do a subject listing, by tag
-
+* Use Common LaTeX Service Interface (http://clsi.scribtex.com/) to automatically
+  generate the PDF, which would mean users didn't have to run LaTeX themselves,
+  thereby making this whole thing a lot easier to use
