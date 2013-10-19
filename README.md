@@ -6,9 +6,11 @@ Written for the [Hackfest at Access 2010 (15 October 2010, Winnipeg MB)](http://
 
 Thanks to Hackfest project partners: Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at Code4Lib North (6 May 2011, Hamilton ON).
 
+![Example of what it looks like](nlpltc-sample.png)
+
 # Usage
 
-First, obtain a CSV export from your LibraryThing collection: [http://www.librarything.com/more/import](http://www.librarything.com/more/import)
+First, obtain a CSV export from your LibraryThing collection: [https://www.librarything.com/more/import](https://www.librarything.com/more/import)
 
 Then:
 
