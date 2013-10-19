@@ -42,17 +42,20 @@ items = []
 
 lt_data = File.read(csv)
 
+# There may be UTF-8 encoding issues, and this back-and-forth should solve them.
 lt_data.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
 lt_data.encode!('UTF-8', 'UTF-16')
 
+# This we use to turn any escaped HTML into real characters.
 coder = HTMLEntities.new
 
 CSV.parse(lt_data, {:headers => true, :header_converters => :symbol}) do |row|
   if row[:author_last_first].nil? then row[:author_last_first] = "[unknown]" end
-  if row[:ddc].nil? then row[:ddc] = "FIC" end
+  if row[:ddc].nil? then row[:ddc] = "[---]" end
   row[:publication_info] = coder.decode(row[:publication_info]).gsub('&', '\\\&')
   # row[:title] = coder.decode(row[:title]).gsub('&', '\\\&')
   row[:author_last_first] = coder.decode(row[:author_last_first]).gsub('&', '\\\&')
+  row[:tags] = coder.decode(row[:tags]).gsub('&', '\\\&').gsub(/,/, ', ')
   # <% # i[:tags] = coder.decode(i[:tags]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
 
   book = {
@@ -65,6 +68,8 @@ CSV.parse(lt_data, {:headers => true, :header_converters => :symbol}) do |row|
   # items.push(row)
   items << book
 end
+
+STDERR.puts "Processed #{items.size} books"
 
 lastauthor = ""
 

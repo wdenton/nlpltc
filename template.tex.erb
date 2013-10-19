@@ -7,12 +7,16 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage{microtype}
+\usepackage{microtype} % Improve subtle kerning
 
-\usepackage{lmodern}
+\usepackage{lmodern} % Nice font
 
-\usepackage{longtable}
+\usepackage{longtable} % Split tables across pages
+
 \usepackage[margin=2.5cm]{geometry}
+
+\usepackage{sectsty}
+\allsectionsfont{\mdseries\scshape} % Make sections use small caps.
 
 \leftskip 0.25in
 \parindent -0.25in
@@ -21,19 +25,18 @@
 
 \maketitle
 
-\section{Author Listing}
+\section*{Author Listing}
 
 \begin{longtable}{p{4.5in} l}
 
 <% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
 
 <% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
-\hspace{2em}\textsf{<%= i[:title] %>}
+\hspace{1em}\textsf{<%= i[:title] %>}
 \newline
-<% unless i[:publication] == "" %>\textit{\hspace{1em}<%= i[:publication] %>}\newline<% end %>
-<% # unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}<% end %>
-\hspace{1em}
-
+<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
+<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
+<% # \hspace{1em} %>
 <% lastauthor = i[:author] %>
 
 &
@@ -46,7 +49,7 @@
 
 \newpage
 
-\section{Classified listing}
+\section*{Classified listing}
 
 \noindent
 
@@ -55,10 +58,10 @@
 <%= i[:ddc] %>
 \newline
 <% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
-\hspace{2em}\textsf{<%= i[:title] %>}
+\hspace{1em}\textsf{<%= i[:title] %>}
 \newline
 <% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
-<% # unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
+<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
 
 <% lastauthor = i[:author] %>
 
