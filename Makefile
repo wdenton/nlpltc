@@ -5,7 +5,6 @@
 # `make clean` removes all PDFs, .tex files, .log files, .aux files in the
 # directory
 
-
 # This bit just finds all CSV files in the current directory and tries to
 # build PDFs from all of them, making just `make` useful.
 all: $(shell find . -maxdepth 1 -name "*.csv" | sed s/.csv/.pdf/g)

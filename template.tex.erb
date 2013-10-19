@@ -1,8 +1,15 @@
-\documentclass{article}
+\documentclass[10pt]{article}
 
 \title{Your Title Goes Here}
 \author{As generated from LibraryThing\\With Ruby, ERB, and \LaTeX}
 \date{} % Leave empty for no date, or fill in yourself
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{microtype}
+
+\usepackage{lmodern}
 
 \usepackage{longtable}
 \usepackage[margin=2.5cm]{geometry}
@@ -18,25 +25,20 @@
 
 \begin{longtable}{p{4.5in} l}
 
-<% items.sort_by{ |a| [ a[2], a[0].gsub(/^(The |A |An )/, '') ]}.each do |i| %>
+<% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
 
-<% ddc    = i[5] || "" %>
-<% title  = coder.decode(i[0]).gsub(/&/, 'and') %>
-<% author = coder.decode(i[2]).gsub(/&/, 'and') || "[unknown]" %>
-<% publication_info = coder.decode(i[7]) .gsub(/&/, 'and') || "" %>
-<% tags = coder.decode(i[15]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
-
-<% if author == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= author %>}}}<% end %>
-\hspace{2em}\textsf{<%= title %>}
+<% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+\hspace{2em}\textsf{<%= i[:title] %>}
 \newline
-<% unless publication_info == "" %>\textit{\hspace{1em}<%= publication_info %>}\newline<% end %>
-\hspace{1em}<% unless tags == "" %>\textsc{<%= tags %>}<% end %>
+<% unless i[:publication] == "" %>\textit{\hspace{1em}<%= i[:publication] %>}\newline<% end %>
+<% # unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}<% end %>
+\hspace{1em}
 
-<% lastauthor = author %>
+<% lastauthor = i[:author] %>
 
 &
 
-<%= ddc %> \\
+<%= i[:ddc] %> \\
 
 <% end %>
 
@@ -48,23 +50,17 @@
 
 \noindent
 
-<% items.sort{|a, b| a[5] <=> b[5] }.each do |i| %>
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
 
-<% ddc    = i[5] || "" %>
-<% title  = coder.decode(i[0]).gsub(/&/, 'and') %>
-<% author = coder.decode(i[2]).gsub(/&/, 'and') || "[unknown]" %>
-<% publication_info = coder.decode(i[7]) .gsub(/&/, 'and') || "" %>
-<% tags = coder.decode(i[15]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
-
-<%= ddc %>
+<%= i[:ddc] %>
 \newline
-<% if author == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= author %>}}}<% end %>
-\hspace{2em}\textsf{<%= title %>}
+<% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+\hspace{2em}\textsf{<%= i[:title] %>}
 \newline
-<% unless publication_info == "" %>\textit{<%= publication_info %>}\newline<% end %>
-<% unless tags == "" %>\textsc{<%= tags %>}<% end %>
+<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
+<% # unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
 
-<% lastauthor = author %>
+<% lastauthor = i[:author] %>
 
 <% end %>
 

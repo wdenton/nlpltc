@@ -9,6 +9,7 @@ require 'erb'
 
 require 'rubygems'
 require 'htmlentities'
+require 'json'
 
 csv = ARGV[0]
 if csv.nil?
@@ -37,24 +38,40 @@ tex_template = "template.tex.erb"
 # 13 'SUBJECTS',
 # 14 'TAGS'
 
-rows = CSV.open(csv, 'r', ',')
-
 items = []
 
-rows.each do |r|
-  # Clean up a bit, and push into an array
-  if r[2].nil? then r[2] = "(Anonymous)" end
-  if r[5].nil? then r[5] = "FIC" end
-  items.push(r)
-end
+lt_data = File.read(csv)
+
+lt_data.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+lt_data.encode!('UTF-8', 'UTF-16')
 
 coder = HTMLEntities.new
 
+CSV.parse(lt_data, {:headers => true, :header_converters => :symbol}) do |row|
+  if row[:author_last_first].nil? then row[:author_last_first] = "[unknown]" end
+  if row[:ddc].nil? then row[:ddc] = "FIC" end
+  row[:publication_info] = coder.decode(row[:publication_info]).gsub('&', '\\\&')
+  # row[:title] = coder.decode(row[:title]).gsub('&', '\\\&')
+  row[:author_last_first] = coder.decode(row[:author_last_first]).gsub('&', '\\\&')
+  # <% # i[:tags] = coder.decode(i[:tags]).gsub(/&/, 'and').gsub(/,/, ', ') || "" %>
+
+  book = {
+    title:            coder.decode(row[:title]).gsub('&', '\\\&'),
+    author:           row[:author_last_first],
+    publication:      row[:publication_info].to_s + ". " + row[:date].to_s,
+    ddc:              row[:ddc],
+    tags:             row[:tags]
+  }
+  # items.push(row)
+  items << book
+end
+
 lastauthor = ""
+
+# puts items.to_json
+# exit
 
 tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
 catalogue = template.result
 puts catalogue
-
-
