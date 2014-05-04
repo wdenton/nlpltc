@@ -9,6 +9,9 @@
 # build PDFs from all of them, making just `make` useful.
 all: $(shell find . -maxdepth 1 -name "*.csv" | sed s/.csv/.pdf/g)
 
+fetch:
+	curl -L --cookie "cookie_userid=COOKIE; cookie_usernum=COOKIE; cookie_userchecksum=COOKIE; PHPSESSID=COOKIE" -o lt.csv https://www.librarything.com/export-csv
+
 %.tex : %.csv
 	./nlpltc $< > $@
 
