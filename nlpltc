@@ -5,71 +5,80 @@
 # William Denton <wtd@pobox.com>
 
 require "csv"
+require "docopt"
 require "erb"
 require "htmlentities"
 require "json"
 
-csv = ARGV[0]
-if csv.nil?
-  puts "Please specify a LibraryThing CSV export file"
-  exit
-end
+doc = <<DOCOPT
+  Make a nice-looking printed catalogue of a LibraryThing library
+
+  Usage:  #{__FILE__} -i export.json
+
+  Options:
+  -i, --input FILE    Input file
+  -o, --output FILE   Output file [default: catalogue.tex]
+DOCOPT
+
+options = Docopt.docopt(doc)
 
 tex_template = "template.tex.erb"
 
-# Layout of the LibraryThing CSV export file:
-# (Note that this is slightly different from the Excel file!)
-#
-#  0 'TITLE',
-#  1 "'AUTHOR (first, last)'",
-#  2 "'AUTHOR (last, first)'",
-#  3 'DATE',
-#  4 'LCC',
-#  5 'DDC',
-#  6 'ISBN',
-#  7 "'PUBLICATION INFO'",
-#  8 'COMMENTS',
-#  9 'RATING',
-# 10 'REVIEW',
-# 11 "'ENTRY DATE'",
-# 12 'COPIES',
-# 13 'SUBJECTS',
-# 14 'TAGS'
-
 items = []
 
-lt_data = File.read(csv)
+lt = JSON.parse(File.read(options["--input"].to_s))
 
 # There may be UTF-8 encoding issues, and this back-and-forth should solve them.
-lt_data.encode!("UTF-16", "UTF-8", :invalid => :replace, :replace => "")
-lt_data.encode!("UTF-8", "UTF-16")
+# lt_data.encode!("UTF-16", "UTF-8", :invalid => :replace, :replace => "")
+# lt_data.encode!("UTF-8", "UTF-16")
 
 # This we use to turn any escaped HTML into real characters.
 coder = HTMLEntities.new
 
-CSV.parse(lt_data, :headers => true, :header_converters => :symbol) do |row|
-  row[:author_last_first] = "[unknown]" if row[:author_last_first].nil?
-  row[:ddc] = "[---]" if row[:ddc].nil?
-  row[:publication_info] = coder.decode(row[:publication_info]).gsub("&", "\\\&")
-  row[:author_last_first] = coder.decode(row[:author_last_first]).gsub("&", "\\\&")
-  row[:tags] = coder.decode(row[:tags]).gsub("&", "\\\&").gsub(/,/, ", ")
+lt.each do |id|
+  # title, publication, date, tags = ""
+  authors = "UNKNOWN"
+  ddc = "UNK"
+
+  # STDERR.puts "--------"
+  book = id[1]
+  title = coder.decode(book["title"]).gsub("&", "\\\\&")
+  publication = coder.decode(book["publication"].to_s).gsub("&", "\\\\&")
+  STDERR.puts publication
+  date = book["date"].to_s
+
+  ddc = book["ddc"]["code"].first if book["ddc"]
+  tags = book["tags"]
+
+  if book["authors"].size > 1
+    book["authors"].each_index do |i|
+      if i.zero?
+        authors = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
+        if book["authors"][i]["role"]
+          authors = authors + " (" + book["authors"][i]["role"].gsub("&", "\\\&") + ")"
+        end
+      else
+        authors = authors + ", " + coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
+        if book["authors"][i]["role"]
+          authors = authors + " (" + book["authors"][i]["role"].gsub("&", "\\\&") + ")"
+        end
+      end
+    end
+  end
 
   book = {
-    title:            coder.decode(row[:title]).gsub("&", "\\\&"),
-    author:           row[:author_last_first],
-    publication:      row[:publication_info].to_s + ". " + row[:date].to_s,
-    ddc:              row[:ddc],
-    tags:             row[:tags]
+    title:            title,
+    author:           authors,
+    publication:      publication + ", " + date + ".",
+    ddc:              ddc,
+    tags:             tags
   }
   items << book
 end
 
 STDERR.puts "Processed #{items.size} books"
 
-# lastauthor = ""
-
-# puts items.to_json
-# exit
+lastauthor = ""
 
 tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
