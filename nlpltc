@@ -67,7 +67,7 @@ lt.each do |id|
         end
         authors += coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
       end
-      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author"
+      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
         authors += " (" + coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&") + ")"
       end
     end

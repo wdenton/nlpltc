@@ -1,4 +1,4 @@
-\documentclass[10pt]{memoir}
+\documentclass[10pt,twocolumn]{memoir}
 
 \title{Your Title Goes Here}
 \author{As generated from LibraryThing\\With Ruby, ERB, and \LaTeX}
@@ -36,29 +36,49 @@
 
 \mainmatter
 
-\part{Author Listing}
+\part{Test Author Listing}
 
-\begin{longtable}{p{0.66\textwidth} l}
+\chapter{Test Author Listing}
 
 <% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
 
-%% Make author names uppercase with \MakeUppercase ?
-
 <% if i[:author] == lastauthor %>------------<% else %>{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
-\hspace{1em}<%= i[:title] %>
-\newline
-<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
-<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
-<% # \hspace{1em} %>
+
+\textit{<%= i[:title] %>}.
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}<% end %>
+\hfill
+\mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}} \\
+
 <% lastauthor = i[:author] %>
-
-&
-
-\MakeLowercase{\textsc{<%= i[:ddc] %>}} \\
 
 <% end %>
 
-\end{longtable}
+\newpage
+
+\part{Author Listing}
+
+%% \begin{longtable}{p{0.66\textwidth} l}
+
+%% <% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
+
+%% Make author names uppercase with \MakeUppercase ?
+
+%% <% if i[:author] == lastauthor %>------------<% else %>{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+%% \hspace{1em}<%= i[:title] %>
+%% \newline
+%% <% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
+%% <% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
+%% <% # \hspace{1em} %>
+%% <% lastauthor = i[:author] %>
+
+%% &
+
+%% \MakeLowercase{\textsc{<%= i[:ddc] %>}} \\
+
+%% <% end %>
+
+%% \end{longtable}
 
 \newpage
 
