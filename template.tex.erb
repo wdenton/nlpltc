@@ -1,4 +1,4 @@
-\documentclass[10pt,twocolumn]{memoir}
+\documentclass[9pt,twocolumn]{memoir}
 
 \title{Your Title Goes Here}
 \author{As generated from LibraryThing\\With Ruby, ERB, and \LaTeX}
@@ -40,14 +40,14 @@
 
 \chapter{Test Author Listing}
 
-<% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
+<% items.sort_by{ |a| [ a[:author].downcase, a[:title] ]}.each do |i| %>
 
-<% if i[:author] == lastauthor %>------------<% else %>{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+<% if i[:author] == lastauthor %>------------<% else %>{\textbf{<%= i[:author] %>}}<% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
-<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}<% end %>
-\hfill
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\hspace{1em}\hfill
 \mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}} \\
 
 <% lastauthor = i[:author] %>
