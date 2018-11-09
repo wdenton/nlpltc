@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 
 # Generate a nice-looking printed LibraryThing catalogue
 #
@@ -9,6 +10,7 @@ require "docopt"
 require "erb"
 require "htmlentities"
 require "json"
+require "titleize"
 
 doc = <<DOCOPT
   Make a nice-looking printed catalogue of a LibraryThing library
@@ -36,43 +38,50 @@ lt = JSON.parse(File.read(options["--input"].to_s))
 coder = HTMLEntities.new
 
 lt.each do |id|
-  # title, publication, date, tags = ""
   authors = "UNKNOWN"
   ddc = "UNK"
+  tags = ""
 
-  # STDERR.puts "--------"
   book = id[1]
-  title = coder.decode(book["title"]).gsub("&", "\\\\&")
+  title = coder.decode(book["title"].to_s).gsub("&", "\\\\&").titleize
   publication = coder.decode(book["publication"].to_s).gsub("&", "\\\\&")
-  STDERR.puts publication
   date = book["date"].to_s
 
   ddc = book["ddc"]["code"].first if book["ddc"]
-  tags = book["tags"]
 
-  if book["authors"].size > 1
+  # Tags are entered separated by commas, then exported
+  # as an array.  Here we rejoin them with commas.
+  tags = book["tags"].join(", ") if book["tags"]
+
+  unless book["authors"][0].empty?
+    # If authors == [[]] then we need to skip this,
+    # and stick with the default, "UNKNOWN"
     book["authors"].each_index do |i|
       if i.zero?
         authors = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
-        if book["authors"][i]["role"]
-          authors = authors + " (" + book["authors"][i]["role"].gsub("&", "\\\&") + ")"
-        end
       else
-        authors = authors + ", " + coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
-        if book["authors"][i]["role"]
-          authors = authors + " (" + book["authors"][i]["role"].gsub("&", "\\\&") + ")"
+        if i == book["authors"].length - 1
+          authors += " and "
+        else
+          authors += ", "
         end
+        authors += coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
+      end
+      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author"
+        authors += " (" + coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&") + ")"
       end
     end
+    authors += "."
   end
 
   book = {
-    title:            title,
-    author:           authors,
-    publication:      publication + ", " + date + ".",
-    ddc:              ddc,
-    tags:             tags
+    title:       title,
+    author:      authors,
+    publication: publication + ", " + date + ".",
+    ddc:         ddc,
+    tags:        tags
   }
+  STDERR.puts book
   items << book
 end
 
