@@ -1,0 +1,91 @@
+\documentclass[10pt,twocolumn]{memoir}
+
+\title{Catalogue of the Library of the Arts and Letters Club of Toronto}
+\author{William Denton}
+\date{December 2018}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{microtype} % Improve subtle kerning
+
+\usepackage[osf]{Baskervaldx}
+
+\usepackage{longtable} % Split tables across pages
+
+\setlength{\parindent}{0pt}
+
+\stockletter
+\pageletter
+\checkandfixthelayout
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\cleardoublepage
+
+\tableofcontents*
+
+\mainmatter
+
+\part{Author Listing}
+
+<% items.sort_by{ |a| [ a[:author].downcase, a[:title] ]}.each do |i| %>
+
+<% if i[:author] == lastauthor %>---------<% else %>{\textbf{<%= i[:author] %>}}<% end %>
+
+<%= i[:title] %>.
+<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}<% end %>
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\hspace{1em}\hfill
+\mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}}
+\newline
+
+<% lastauthor = i[:author] %>
+
+<% end %>
+
+\newpage
+
+\part{Classified listing: nonfiction}
+
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+
+<% next if i[:ddc][0] =~ /[[:alpha:]]/ %>
+
+\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}} \newline
+<%= i[:author] %>
+
+\textit{<%= i[:title] %>}.
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\newline
+
+<% lastauthor = i[:author] %>
+
+<% end %>
+
+\newpage
+
+\part{Classified listing: fiction, drama, poetry}
+
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+
+<% next unless i[:ddc][0] =~ /[[:alpha:]]/ %>
+
+\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}} \newline
+<%= i[:author] %>
+
+\textit{<%= i[:title] %>}.
+                         <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\newline
+
+<% lastauthor = i[:author] %>
+
+<% end %>
+
+\end{document}

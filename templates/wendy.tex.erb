@@ -1,0 +1,67 @@
+\documentclass[10pt]{article}
+
+\title{Your Title Goes Here}
+\author{As generated from LibraryThing\\With Ruby, ERB, and \LaTeX}
+\date{} % Leave empty for no date, or fill in yourself
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{microtype} % Improve subtle kerning
+
+\usepackage{lmodern} % Nice font
+
+\usepackage{longtable} % Split tables across pages
+
+\leftskip 0.25in
+\parindent -0.25in
+
+\begin{document}
+
+\maketitle
+
+\section*{Author Listing}
+
+\begin{longtable}{p{0.66\textwidth} l}
+
+<% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
+
+<% if i[:author] == lastauthor %>------------<% else %>{\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}}<% end %>
+\hspace{1em}<%= i[:title] %>
+\newline
+<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
+<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
+<% # \hspace{1em} %>
+<% lastauthor = i[:author] %>
+
+&
+
+\MakeLowercase{\textsc{<%= i[:ddc] %>}} \\
+
+<% end %>
+
+\end{longtable}
+
+\newpage
+
+\section*{Classified Listing}
+
+\noindent
+
+<% lastauthor = "" %>
+
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+
+<%= i[:ddc] %>
+\newline
+<% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+\hspace{1em}\textsf{<%= i[:title] %>}
+\newline
+<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
+<% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
+
+<% lastauthor = i[:author] %>
+
+<% end %>
+
+\end{document}

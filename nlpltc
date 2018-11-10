@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# coding: utf-8
 
 # Generate a nice-looking printed LibraryThing catalogue
 #
@@ -15,16 +14,17 @@ require "titleize"
 doc = <<DOCOPT
   Make a nice-looking printed catalogue of a LibraryThing library
 
-  Usage:  #{__FILE__} -i export.json
+  Usage:  #{__FILE__} [options]
 
   Options:
-  -i, --input FILE    Input file
-  -o, --output FILE   Output file [default: catalogue.tex]
+  -i FILE --input=FILE     Input file
+  -o FILE --output=FILE    Output file [default: catalogue.tex]
+  -t FILE --template=FILE  LaTeX template [default: templates/wendy.tex.erb]
 DOCOPT
 
 options = Docopt.docopt(doc)
 
-tex_template = "template.tex.erb"
+tex_template = options["--template"]
 
 items = []
 
@@ -71,7 +71,9 @@ lt.each do |id|
         authors += " (" + coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&") + ")"
       end
     end
-    authors += "."
+    # Single author names like "Hart, Peter R." end with a period,
+    # so don't add one.
+    authors += "." unless authors[-1] == "."
   end
 
   book = {
@@ -92,4 +94,5 @@ lastauthor = ""
 tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
 catalogue = template.result
+
 puts catalogue
