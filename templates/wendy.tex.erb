@@ -27,7 +27,7 @@
 <% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
 
 <% if i[:author] == lastauthor %>------------<% else %>{\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}}<% end %>
-\hspace{1em}<%= i[:title] %>
+\hspace{2em}<%= i[:title] %>
 \newline
 <% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
 <% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>

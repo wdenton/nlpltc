@@ -1,8 +1,8 @@
-\documentclass[10pt,twocolumn]{memoir}
+\documentclass[11pt,twocolumn]{memoir}
 
 \title{Catalogue of the Library of the Arts and Letters Club of Toronto}
 \author{William Denton}
-\date{December 2018}
+\date{April 2019}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -11,7 +11,9 @@
 
 \usepackage[osf]{Baskervaldx}
 
-\usepackage{longtable} % Split tables across pages
+%% \usepackage{longtable} % Split tables across pages
+
+\usepackage{graphicx}
 
 \setlength{\parindent}{0pt}
 
@@ -19,36 +21,73 @@
 \pageletter
 \checkandfixthelayout
 
+%% No running heads ... just page numbers (in the header)
+\pagestyle{simple}
+
 \begin{document}
 
 \frontmatter
 
-\maketitle
+%% Title page
+
+{%%
+\onecolumn
+\thispagestyle{empty}
+\vfill
+\centering
+\HUGE
+\MakeLowercase{\textsc{The Arts and Letters Club of Toronto}} \\[3\baselineskip]
+\resizebox{!}{0.5in}{A} \\[\baselineskip]
+\resizebox{4in}{!}{Catalogue} \\[\baselineskip]
+\resizebox{!}{0.5in}{of the} \\[\baselineskip]
+\resizebox{4in}{!}{Library}
+\vfill
+{\large Prepared by the Librarian, William Denton} \\[\baselineskip]
+April 2019\\[\baselineskip]
+}
 
 \cleardoublepage
 
 \tableofcontents*
 
+\frontmatter
+
+\part{Introduction}
+
+Explain how the catalogue works.
+
+Give the history of the library and the catalogue.  Here is a longer bit of text.  What happens? Give the history of the library and the catalogue.  Here is a longer bit of text.  What happens? Give the history of the library and the catalogue.  Here is a longer bit of text.  What happens?
+
 \mainmatter
+
+\twocolumn
+
+%%%
+%%% AUTHOR LISTING
+%%%
 
 \part{Author Listing}
 
-<% items.sort_by{ |a| [ a[:author].downcase, a[:title] ]}.each do |i| %>
+<% lastauthor = "" %>
 
-<% if i[:author] == lastauthor %>---------<% else %>{\textbf{<%= i[:author] %>}}<% end %>
+<% items.sort_by{ |a| [ a[:author_line].downcase, a[:title] ]}.each do |i| %>
 
-<%= i[:title] %>.
-<% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}<% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+
+\textit{<%= i[:title] %>}.
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
 \hspace{1em}\hfill
 \mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}}
 \newline
 
-<% lastauthor = i[:author] %>
+<% lastauthor = i[:latex_author_line] %>
 
 <% end %>
 
-\newpage
+%%%
+%%% NONFICTION
+%%%
 
 \part{Classified listing: nonfiction}
 
@@ -56,8 +95,8 @@
 
 <% next if i[:ddc][0] =~ /[[:alpha:]]/ %>
 
-\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}} \newline
-<%= i[:author] %>
+\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}}\newline
+<%= i[:author_line] %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
@@ -68,23 +107,72 @@
 
 <% end %>
 
-\newpage
+%%%
+%%% FICTION
+%%%
 
-\part{Classified listing: fiction, drama, poetry}
+\part{Classified listing: fiction}
+
+<% lastauthor = "" %>
 
 <% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
 
-<% next unless i[:ddc][0] =~ /[[:alpha:]]/ %>
+<% next unless i[:ddc][0,3] == "FIC" %>
 
-\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}} \newline
-<%= i[:author] %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
-                         <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
 \newline
 
-<% lastauthor = i[:author] %>
+<% lastauthor = i[:latex_author_line] %>
+
+<% end %>
+
+%%%
+%%% DRAMA
+%%%
+
+\part{Classified listing: drama}
+
+<% lastauthor = "" %>
+
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+
+<% next unless i[:ddc] =~ /DRAM/ %>
+
+<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+
+\textit{<%= i[:title] %>}.
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\newline
+
+<% lastauthor = i[:latex_author_line] %>
+
+<% end %>
+
+%%%
+%%% POETRY
+%%%
+
+\part{Classified listing: poetry}
+
+<% lastauthor = "" %>
+
+<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+
+<% next unless i[:ddc] =~ /POE/ %>
+
+<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+
+\textit{<%= i[:title] %>}.
+<% unless i[:publication] == "" %><%= i[:publication] %><% end %>
+<% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
+\newline
+
+<% lastauthor = i[:latex_author_line] %>
 
 <% end %>
 

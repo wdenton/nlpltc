@@ -38,7 +38,8 @@ lt = JSON.parse(File.read(options["--input"].to_s))
 coder = HTMLEntities.new
 
 lt.each do |id|
-  authors = "UNKNOWN"
+  author_line = "UNKNOWN"
+  authors = []
   ddc = "UNK"
   tags = ""
 
@@ -53,32 +54,56 @@ lt.each do |id|
   # as an array.  Here we rejoin them with commas.
   tags = book["tags"].join(", ") if book["tags"]
 
+  ## Make a function that formats the line in LaTeX the way I want it,
+  ## then include that in the export and use it.  Too much ugly stuff
+  ## in the template.
+  ##
+  ## Also, do the lastauthor bit again in my new look.
+
   unless book["authors"][0].empty?
     # If authors == [[]] then we need to skip this,
     # and stick with the default, "UNKNOWN"
-    book["authors"].each_index do |i|
-      if i.zero?
-        authors = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
-      else
-        if i == book["authors"].length - 1
-          authors += " and "
+      author_name = ""
+      latex_author_line = ""
+      role = ""
+      book["authors"].each_index do |i|
+        if i.zero?
+          author_name = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
+          author_line = author_name
+          latex_author_line = %q(\textbf{) + author_name + "}"
         else
-          authors += ", "
+          if i == book["authors"].length - 1
+            author_line += " and "
+            latex_author_line += " and "
+          else
+            author_line += ", "
+            latex_author_line += ", "
+          end
+          author_name = coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
+          author_line += author_name
+          latex_author_line += %q(\textbf{) + author_name + "}"
         end
-        authors += coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
+        if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
+          role = coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&")
+          author_line += " (" + role + ")"
+          latex_author_line += " (" + role + ")"
+        end
+        authors << [author_name, role]
       end
-      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
-        authors += " (" + coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&") + ")"
-      end
-    end
-    # Single author names like "Hart, Peter R." end with a period,
-    # so don't add one.
-    authors += "." unless authors[-1] == "."
+
+      STDERR.puts latex_author_line
+
+      # Single author names like "Hart, Peter R." end with a period,
+      # so don't add one.
+      author_line += "." unless author_line[-1] == "."
+      latex_author_line += "." unless latex_author_line[-1] == "."
   end
 
   book = {
     title:       title,
-    author:      authors,
+    author_line: author_line,
+    latex_author_line: latex_author_line,
+    authors:     authors,
     publication: publication + ", " + date + ".",
     ddc:         ddc,
     tags:        tags
@@ -89,10 +114,20 @@ end
 
 STDERR.puts "Processed #{items.size} books"
 
-lastauthor = ""
+# STDERR.puts items
+
+# lastauthor = ""
 
 tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
 catalogue = template.result
 
 puts catalogue
+
+# <% if i[:authors].first == lastauthor %>%
+# ---------%
+# <% else %>
+# <% i[:authors].each_index do |ai| %>
+# \textbf{<%= i[:authors][ai][0] %>}<% if ! i[:authors][ai][1].empty? %> (<%= i[:authors][ai][1] %>)<% end %><% if ai == i[:authors].length - 1 %><% unless i[:authors][ai][0][-1] == "."%>\textbf{.}<% end %><% elsif ai < i[:authors].length - 2 %>, <% else %>  and <% end %>
+# <% end %>
+# <% end %>%
