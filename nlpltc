@@ -83,7 +83,9 @@ lt.each do |id|
         author_line += author_name
         latex_author_line += %q(\textbf{) + author_name + "}"
       end
-      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
+      if book["authors"][i]["role"] &&
+         book["authors"][i]["role"] != "Author" &&
+         book["authors"][i]["role"] != "Author."
         role = coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&")
         author_line += " (" + role + ")"
         latex_author_line += " (" + role + ")"
@@ -91,7 +93,7 @@ lt.each do |id|
       authors << [author_name, role]
     end
 
-    STDERR.puts latex_author_line
+    warn latex_author_line
 
     # Single author names like "Hart, Peter R." end with a period,
     # so don't add one.
@@ -100,21 +102,21 @@ lt.each do |id|
   end
 
   book = {
-    title:       title,
+    title: title,
     author_line: author_line,
     latex_author_line: latex_author_line,
-    authors:     authors,
+    authors: authors,
     publication: publication + ", " + date + ".",
-    ddc:         ddc,
-    tags:        tags
+    ddc: ddc,
+    tags: tags
   }
   STDERR.puts book
   items << book
 end
 
-STDERR.puts "Processed #{items.size} books"
+warn "Processed #{items.size} books"
 
-# STDERR.puts items
+# warn items
 
 lastauthor = ""
 
@@ -123,11 +125,3 @@ template = ERB.new(tex, 0, "%<>")
 catalogue = template.result
 
 puts catalogue
-
-# <% if i[:authors].first == lastauthor %>%
-# ---------%
-# <% else %>
-# <% i[:authors].each_index do |ai| %>
-# \textbf{<%= i[:authors][ai][0] %>}<% if ! i[:authors][ai][1].empty? %> (<%= i[:authors][ai][1] %>)<% end %><% if ai == i[:authors].length - 1 %><% unless i[:authors][ai][0][-1] == "."%>\textbf{.}<% end %><% elsif ai < i[:authors].length - 2 %>, <% else %>  and <% end %>
-# <% end %>
-# <% end %>%
