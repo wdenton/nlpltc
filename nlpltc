@@ -44,7 +44,7 @@ lt.each do |id|
   tags = ""
 
   book = id[1]
-  title = coder.decode(book["title"].to_s).gsub("&", "\\\\&").titleize
+  title = coder.decode(book["title"].to_s).gsub("&", "\\\\&").gsub("#", "\\\\#").titleize
   publication = coder.decode(book["publication"].to_s).gsub("&", "\\\\&")
   date = book["date"].to_s
 
@@ -63,40 +63,40 @@ lt.each do |id|
   unless book["authors"][0].empty?
     # If authors == [[]] then we need to skip this,
     # and stick with the default, "UNKNOWN"
-      author_name = ""
-      latex_author_line = ""
-      role = ""
-      book["authors"].each_index do |i|
-        if i.zero?
-          author_name = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
-          author_line = author_name
-          latex_author_line = %q(\textbf{) + author_name + "}"
+    author_name = ""
+    latex_author_line = ""
+    role = ""
+    book["authors"].each_index do |i|
+      if i.zero?
+        author_name = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
+        author_line = author_name
+        latex_author_line = %q(\textbf{) + author_name + "}"
+      else
+        if i == book["authors"].length - 1
+          author_line += " and "
+          latex_author_line += " and "
         else
-          if i == book["authors"].length - 1
-            author_line += " and "
-            latex_author_line += " and "
-          else
-            author_line += ", "
-            latex_author_line += ", "
-          end
-          author_name = coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
-          author_line += author_name
-          latex_author_line += %q(\textbf{) + author_name + "}"
+          author_line += ", "
+          latex_author_line += ", "
         end
-        if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
-          role = coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&")
-          author_line += " (" + role + ")"
-          latex_author_line += " (" + role + ")"
-        end
-        authors << [author_name, role]
+        author_name = coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
+        author_line += author_name
+        latex_author_line += %q(\textbf{) + author_name + "}"
       end
+      if book["authors"][i]["role"] && book["authors"][i]["role"] != "Author" && book["authors"][i]["role"] != "Author."
+        role = coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&")
+        author_line += " (" + role + ")"
+        latex_author_line += " (" + role + ")"
+      end
+      authors << [author_name, role]
+    end
 
-      STDERR.puts latex_author_line
+    STDERR.puts latex_author_line
 
-      # Single author names like "Hart, Peter R." end with a period,
-      # so don't add one.
-      author_line += "." unless author_line[-1] == "."
-      latex_author_line += "." unless latex_author_line[-1] == "."
+    # Single author names like "Hart, Peter R." end with a period,
+    # so don't add one.
+    author_line += "." unless author_line[-1] == "."
+    latex_author_line += "." unless latex_author_line[-1] == "."
   end
 
   book = {
@@ -116,7 +116,7 @@ STDERR.puts "Processed #{items.size} books"
 
 # STDERR.puts items
 
-# lastauthor = ""
+lastauthor = ""
 
 tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
