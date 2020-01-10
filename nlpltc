@@ -98,7 +98,8 @@ lt.each do |id|
     # Single author names like "Hart, Peter R." end with a period,
     # so don't add one.
     author_line += "." unless author_line[-1] == "."
-    latex_author_line += "." unless latex_author_line[-1] == "."
+    # -2 for LaTeX line because there's a closing }
+    latex_author_line += "." unless latex_author_line[-2] == "."
   end
 
   book = {
