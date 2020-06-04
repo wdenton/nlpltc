@@ -6,8 +6,8 @@
 # directory
 
 alc:
-	nlpltc -i librarything_artsandlettersclub.json -t templates/alc.tex.erb -o alc-catalogue.tex
-	pdflatex alc-catalogue.tex
+	nlpltc -i catalogues/alc/librarything_artsandlettersclub.json -t catalogues/alc/alc.tex.erb -o catalogues/alc/alc-catalogue.tex
+	pdflatex catalogues/alc/alc-catalogue.tex
 
 # This bit just finds all CSV files in the current directory and tries to
 # build PDFs from all of them, making just `make` useful.
