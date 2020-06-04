@@ -5,21 +5,26 @@
 # `make clean` removes all PDFs, .tex files, .log files, .aux files in the
 # directory
 
+alc:
+	nlpltc -i librarything_artsandlettersclub.json -t templates/alc.tex.erb -o alc-catalogue.tex
+	pdflatex alc-catalogue.tex
+
 # This bit just finds all CSV files in the current directory and tries to
 # build PDFs from all of them, making just `make` useful.
-all: $(shell find . -maxdepth 1 -name "*.csv" | sed s/.csv/.pdf/g)
 
-fetch:
-	curl -L --cookie "cookie_userid=COOKIE; cookie_usernum=COOKIE; cookie_userchecksum=COOKIE; PHPSESSID=COOKIE" -o lt.csv https://www.librarything.com/export-csv
+# all: $(shell find . -maxdepth 1 -name "*.csv" | sed s/.csv/.pdf/g)
 
-%.tex : %.csv
-	./nlpltc $< > $@
+# fetch:
+# 	curl -L --cookie "cookie_userid=COOKIE; cookie_usernum=COOKIE; cookie_userchecksum=COOKIE; PHPSESSID=COOKIE" -o lt.csv https://www.librarything.com/export-csv
 
-%.pdf : %.tex
-	pdflatex $<
+# %.tex : %.csv
+# 	./nlpltc $< > $@
 
-clean:
-	rm -f *.pdf
-	rm -f *.tex
-	rm -f *.log
-	rm -f *.aux
+# %.pdf : %.tex
+# 	pdflatex $<
+
+# clean:
+# 	rm -f *.pdf
+# 	rm -f *.tex
+# 	rm -f *.log
+# 	rm -f *.aux

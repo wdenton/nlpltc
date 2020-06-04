@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Generate a nice-looking printed LibraryThing catalogue
 #
@@ -20,15 +21,19 @@ doc = <<DOCOPT
   -i FILE --input=FILE     Input file
   -o FILE --output=FILE    Output file [default: catalogue.tex]
   -t FILE --template=FILE  LaTeX template [default: templates/wendy.tex.erb]
+  -v --verbose             Be verbose
 DOCOPT
 
 options = Docopt.docopt(doc)
 
+input_file = options["--input"]
+output_file = options["--output"]
 tex_template = options["--template"]
+verbose = options["--verbose"]
 
 items = []
 
-lt = JSON.parse(File.read(options["--input"].to_s))
+lt = JSON.parse(File.read(input_file.to_s))
 
 # There may be UTF-8 encoding issues, and this back-and-forth should solve them.
 # lt_data.encode!("UTF-16", "UTF-8", :invalid => :replace, :replace => "")
@@ -93,7 +98,7 @@ lt.each do |id|
       authors << [author_name, role]
     end
 
-    warn latex_author_line
+    # warn latex_author_line
 
     # Single author names like "Hart, Peter R." end with a period,
     # so don't add one.
@@ -111,7 +116,7 @@ lt.each do |id|
     ddc: ddc,
     tags: tags
   }
-  STDERR.puts book
+  ## warn book if verbose
   items << book
 end
 
@@ -125,4 +130,8 @@ tex = IO.read(tex_template)
 template = ERB.new(tex, 0, "%<>")
 catalogue = template.result
 
-puts catalogue
+# puts catalogue
+
+File.open(output_file, "w") do |f|
+  f.write(catalogue)
+end
