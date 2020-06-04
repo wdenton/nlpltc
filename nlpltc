@@ -116,7 +116,7 @@ lt.each do |id|
     ddc: ddc,
     tags: tags
   }
-  ## warn book if verbose
+  warn book if @verbose
   items << book
 end
 
