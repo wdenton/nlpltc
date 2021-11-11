@@ -2,7 +2,7 @@
 
 alc:
 	nlpltc -i catalogues/alc/librarything_artsandlettersclub.json -t catalogues/alc/alc.tex.erb -o catalogues/alc/alc-catalogue.tex
-	pdflatex catalogues/alc/alc-catalogue.tex
+	pdflatex -output-directory catalogues/alc alc-catalogue.tex
 
 # `make` builds PDFs from all CSV files in the directory.
 # `make foo.pdf` builds foo.pdf from foo.csv in the directory

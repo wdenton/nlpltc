@@ -2,16 +2,14 @@
 
 \title{Catalogue of the Library of the Arts and Letters Club of Toronto}
 \author{William Denton}
-\date{June 2020}
+\date{November 2021}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage{microtype} % Improve subtle kerning
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 
 \usepackage[osf]{Baskervaldx}
-
-%% \usepackage{longtable} % Split tables across pages
 
 \usepackage{graphicx}
 
@@ -43,7 +41,7 @@
 \resizebox{4in}{!}{Library}
 \vfill
 {\large Prepared by the Librarian, William Denton} \\[\baselineskip]
-June 2020\\[\baselineskip]
+November 2021\\[\baselineskip]
 }
 
 \cleardoublepage
@@ -99,14 +97,15 @@ Librarian
 
 <% items.sort_by{ |a| [ a[:author_line].downcase, a[:title] ]}.each do |i| %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+%% If author name is the same as before, use three em dashes.  If not, leave a blank line, then show the new name.
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
 \hspace{1em}\hfill
 \mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}}
-\newline
+%% \newline
 
 <% lastauthor = i[:latex_author_line] %>
 
@@ -146,12 +145,12 @@ Librarian
 
 <% next unless i[:ddc][0,3] == "FIC" %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+%% If author name is the same as before, use three em dashes.  If not, leave a blank line, then show the new name.
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-\newline
 
 <% lastauthor = i[:latex_author_line] %>
 
@@ -169,12 +168,12 @@ Librarian
 
 <% next unless i[:ddc] =~ /DRAM/ %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-\newline
+%% \newline
 
 <% lastauthor = i[:latex_author_line] %>
 
@@ -192,12 +191,13 @@ Librarian
 
 <% next unless i[:ddc] =~ /POE/ %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %><%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-\newline
+%%\newline
+
 
 <% lastauthor = i[:latex_author_line] %>
 
