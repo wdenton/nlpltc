@@ -98,7 +98,7 @@ Librarian
 <% items.sort_by{ |a| [ a[:author_line].downcase, a[:title] ]}.each do |i| %>
 
 %% If author name is the same as before, use three em dashes.  If not, leave a blank line, then show the new name.
-<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
@@ -121,13 +121,16 @@ Librarian
 
 <% next if i[:ddc][0] =~ /[[:alpha:]]/ %>
 
-\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}}\newline
+\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}}%\newline
+
 <%= i[:author_line] %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-\newline
+
+\vspace{0.5\baselineskip}
+%% \newline
 
 <% lastauthor = i[:author] %>
 
@@ -146,7 +149,7 @@ Librarian
 <% next unless i[:ddc][0,3] == "FIC" %>
 
 %% If author name is the same as before, use three em dashes.  If not, leave a blank line, then show the new name.
-<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
@@ -168,7 +171,7 @@ Librarian
 
 <% next unless i[:ddc] =~ /DRAM/ %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
@@ -191,7 +194,7 @@ Librarian
 
 <% next unless i[:ddc] =~ /POE/ %>
 
-<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{\baselineskip}<%= i[:latex_author_line] %><% end %>
+<% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
