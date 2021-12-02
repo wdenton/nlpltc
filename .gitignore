@@ -3,3 +3,6 @@ Gemfile.lock
 *.aux
 *.log
 *.toc
+catalogues/alc/alc-catalogue.tex
+catalogues/alc/alc-catalogue.pdf
+catalogues/alc/librarything_artsandlettersclub.json
