@@ -144,7 +144,7 @@ Librarian
 
 <% lastauthor = "" %>
 
-<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+<% items.sort{|a, b| a[:authors] <=> b[:authors] }.each do |i| %>
 
 <% next unless i[:ddc][0,3] == "FIC" %>
 
