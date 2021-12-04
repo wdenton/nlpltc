@@ -144,9 +144,9 @@ Librarian
 
 <% lastauthor = "" %>
 
-<% items.sort{|a, b| a[:authors] <=> b[:authors] }.each do |i| %>
+<% fiction = items.select { |key, _value| key[:ddc] =~ /^FIC/ } %>
 
-<% next unless i[:ddc][0,3] == "FIC" %>
+<% fiction.sort_by{ |a| [a[:authors], a[:title].gsub(/^(The|A|An) /, "")] }.each do |i| %>
 
 %% If author name is the same as before, use three em dashes.  If not, leave a blank line, then show the new name.
 <% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
