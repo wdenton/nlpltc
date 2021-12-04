@@ -167,9 +167,9 @@ Librarian
 
 <% lastauthor = "" %>
 
-<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+<% drama = items.select { |key, _value| key[:ddc] =~ /^DRAM/ } %>
 
-<% next unless i[:ddc] =~ /DRAM/ %>
+<% drama.sort_by{ |a| [a[:authors], a[:title].gsub(/^(The|A|An) /, "")] }.each do |i| %>
 
 <% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
@@ -190,9 +190,9 @@ Librarian
 
 <% lastauthor = "" %>
 
-<% items.sort{|a, b| a[:ddc] <=> b[:ddc] }.each do |i| %>
+<% poetry = items.select { |key, _value| key[:ddc] =~ /^POE/ } %>
 
-<% next unless i[:ddc] =~ /POE/ %>
+<% poetry.sort_by{ |a| [a[:authors], a[:title].gsub(/^(The|A|An) /, "")] }.each do |i| %>
 
 <% if i[:latex_author_line] == lastauthor %>---------<% else %>\vspace{0.5\baselineskip}<%= i[:latex_author_line] %><% end %>
 
