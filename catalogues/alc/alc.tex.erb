@@ -2,7 +2,7 @@
 
 \title{Catalogue of the Library of the Arts and Letters Club of Toronto}
 \author{William Denton}
-\date{December 2021}
+\date{March 2022}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -14,6 +14,11 @@
 \usepackage{graphicx}
 
 \setlength{\parindent}{0pt}
+
+%% For better ragged right edges.
+\usepackage{ragged2e}
+
+%% \usepackage[defaultlines=10000,all]{nowidow}
 
 \stockletter
 \pageletter
@@ -41,7 +46,7 @@
 \resizebox{4in}{!}{Library}
 \vfill
 {\large Prepared by the Librarian, William Denton} \\[\baselineskip]
-03 December 2021\\[\baselineskip]
+08 March 2022\\[\baselineskip]
 }
 
 \cleardoublepage
@@ -85,6 +90,8 @@ Librarian
 
 \mainmatter
 
+\RaggedRight
+
 \twocolumn
 
 %%%
@@ -103,8 +110,9 @@ Librarian
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-\hspace{1em}\hfill
-\mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}}
+%%\hspace{1em}\hfill
+\hspace*{\fill}\mbox{\MakeLowercase{\textsc{<%= i[:ddc] %>}}}
+
 %% \newline
 
 <% lastauthor = i[:latex_author_line] %>
@@ -121,14 +129,12 @@ Librarian
 
 <% next if i[:ddc][0] =~ /[[:alpha:]]/ %>
 
-\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}}%\newline
+\MakeLowercase{\textsc{\textbf{<%= i[:ddc] %>}}}%%\newline
 
 <%= i[:author_line] %>
-
 \textit{<%= i[:title] %>}.
 <% unless i[:publication] == "" %><%= i[:publication] %><% end %>
 <% unless i[:tags] == "" %> \textsc{<%= i[:tags] %>}<% end %>
-
 \vspace{0.5\baselineskip}
 %% \newline
 
