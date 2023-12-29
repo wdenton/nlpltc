@@ -1,4 +1,4 @@
-#+title: nlpltc: Generate a nice-looking printed LibraryThing catalogue
+#+title: nlpltc: Nice-Looking Printed LibraryThing Catalogue
 #+author: William Denton <william@williamdenton.org>
 
 * About
@@ -12,7 +12,7 @@ Example:
 
 * Usage
 
-First, obtain a CSV export from your LibraryThing collection: [https://www.librarything.com/more/import](https://www.librarything.com/more/import)
+First, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON export from your LibraryThing collection]].
 
 Then:
 
@@ -33,7 +33,7 @@ bundle install
 
 * History
 
-Written for the [Hackfest at Access 2010 (15 October 2010, Winnipeg MB)](http://access2010.lib.umanitoba.ca/node/3.html).
+Written for the Hackfest at the 2010 [[https://accessconference.ca/][Access conference]] (15 October 2010, Winnipeg MB) ([[https://web.archive.org/web/20110208015457/https://access2010.lib.umanitoba.ca/][Wayback Machine archive]]).
 
 Thanks to Hackfest project partners: Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at Code4Lib North (6 May 2011, Hamilton ON).
 
