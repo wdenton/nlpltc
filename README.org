@@ -16,10 +16,12 @@ First, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON
 
 Then:
 
-    $ nlpltc your-lt-export.csv > catalogue.tex
-    $ pdflatex catalogue.tex
++ TODO: update this step
 
-That will produce =catalogue.pdf=.
+#   $ nlpltc your-lt-export.csv > catalogue.tex
+#  $ pdflatex catalogue.tex
+
+# That will produce =catalogue.pdf=.
 
 * Requirements
 
