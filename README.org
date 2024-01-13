@@ -42,7 +42,7 @@ cd mylib
 mv test.tex.erb mylib.tex.erb
 #+end_src
 
-Next, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON export from your LibraryThing collection]].  We'll assume it's called =librarything_mylib.json=.  Move it into the =mycatalogue= directory.  Then from the top directory of this source tree, run
+Next, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON export from your LibraryThing collection]].  We'll assume it's called =librarything_mylib.json=.  Move it into the =mylib= directory.  Then from the top directory of this source tree, run
 
 #+begin_src shell
 ./nlpltc -i catalogues/mylib/librarything_mylib.json -t catalogues/mylib/mylib.tex.erb -o catalogues/mylib/mylib-catalogue.tex
@@ -51,7 +51,7 @@ pdflatex -output-directory catalogues/mylib mylib-catalogue.tex
 
 Then view =catalogues/mylib/mylib-catalogue.pdf=.
 
-For regular use, edit =Makefile= and add an entry so you can just run ~make mylib~.
+For regular use, edit =Makefile= and add a ~mylib~ entry so you can just run ~make mylib~.
 
 * History
 

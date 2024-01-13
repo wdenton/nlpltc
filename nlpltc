@@ -19,8 +19,8 @@ doc = <<DOCOPT
 
   Options:
   -i FILE --input=FILE     Input file
-  -o FILE --output=FILE    Output file [default: catalogue.tex]
-  -t FILE --template=FILE  LaTeX template [default: templates/wendy.tex.erb]
+  -o FILE --output=FILE    Output file [default: catalogues/test/test.tex]
+  -t FILE --template=FILE  LaTeX template [default: catalogues/test.tex.erb]
   -v --verbose             Be verbose
 DOCOPT
 
