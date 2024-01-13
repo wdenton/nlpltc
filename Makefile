@@ -4,9 +4,9 @@ alc:
 	nlpltc -i catalogues/alc/librarything_artsandlettersclub.json -t catalogues/alc/alc.tex.erb -o catalogues/alc/alc-catalogue.tex
 	pdflatex -output-directory catalogues/alc alc-catalogue.tex
 
-wendy:
-	nlpltc -i catalogues/wendy/test-export.json -t catalogues/wendy/wendy.tex.erb -o catalogues/wendy/wendy-catalogue.tex
-	pdflatex -output-directory catalogues/wendy wendy-catalogue.tex
+test:
+	nlpltc -i catalogues/test/test-export.json -t catalogues/test/test.tex.erb -o catalogues/test/test-catalogue.tex
+	pdflatex -output-directory catalogues/test test-catalogue.tex
 
 # `make` builds PDFs from all CSV files in the directory.
 # `make foo.pdf` builds foo.pdf from foo.csv in the directory
