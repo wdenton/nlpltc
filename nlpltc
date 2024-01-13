@@ -3,7 +3,7 @@
 
 # Generate a nice-looking printed LibraryThing catalogue
 #
-# William Denton <wtd@pobox.com>
+# William Denton <william@williamdenton.org>
 
 require "csv"
 require "docopt"
