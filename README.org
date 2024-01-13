@@ -5,16 +5,16 @@
 
 * About
 
-This generates a nice-looking printed catalogue for a [[https://www.librarything.com/home#][LibraryThing]] library.
+This generates a nice-looking printed catalogue for a [[https://www.librarything.com/][LibraryThing]] library.
 
-Example (from the [[https://artsandlettersclub.ca/][Arts and Letters Club of Toronto]] library):
+Example (generated from the [[https://artsandlettersclub.ca/][Arts and Letters Club of Toronto]] library):
 
 #+caption: Example from the Arts and Letters Club catalogue
 [[./nlpltc-sample.png]]
 
 * Requirements
 
-+ LaTeX!  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
++ LaTeX.  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
 + [[https://www.ruby-lang.org/en/][Ruby]] (and some gems).
 
 * Installation
@@ -61,5 +61,6 @@ Thanks to Hackfest project partners: Ganga Dakshinamurti, Wendy Huot, and Rebecc
 
 * To Do
 
-+ Automate the getting of the export file (if you know a cookie?)
-+ Do a subject listing, by tag
++ Allow ~nlpltc mylib~ or the like, and it all just works.
++ Automate the getting of the export file (if you know a cookie?).
++ Do a subject listing, by tag.
