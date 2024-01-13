@@ -29,7 +29,7 @@ options = Docopt.docopt(doc)
 input_file = options["--input"]
 output_file = options["--output"]
 tex_template = options["--template"]
-verbose = options["--verbose"]
+# verbose = options["--verbose"]
 
 items = []
 
@@ -75,7 +75,7 @@ lt.each do |id|
       if i.zero?
         author_name = coder.decode(book["authors"][i]["lf"]).gsub("&", "\\\&")
         author_line = author_name
-        latex_author_line = %q(\textbf{) + author_name + "}"
+        latex_author_line = "\\textbf{#{author_name}}" # Need to escape \
       else
         if i == book["authors"].length - 1
           author_line += " and "
@@ -86,14 +86,15 @@ lt.each do |id|
         end
         author_name = coder.decode(book["authors"][i]["fl"]).gsub("&", "\\\&")
         author_line += author_name
-        latex_author_line += %q(\textbf{) + author_name + "}"
+        # latex_author_line += %q(\textbf{) + author_name + "}"
+        latex_author_line += "\\textbf{#{author_name}}"
       end
       if book["authors"][i]["role"] &&
          book["authors"][i]["role"] != "Author" &&
          book["authors"][i]["role"] != "Author."
         role = coder.decode(book["authors"][i]["role"]).gsub("&", "\\\&")
-        author_line += " (" + role + ")"
-        latex_author_line += " (" + role + ")"
+        author_line += " (#{role})"
+        latex_author_line += " (#{role})"
       end
       authors << [author_name, role]
     end
@@ -112,7 +113,7 @@ lt.each do |id|
     author_line: author_line,
     latex_author_line: latex_author_line,
     authors: authors,
-    publication: publication + ", " + date + ".",
+    publication: "#{publication}, #{date}.",
     ddc: ddc,
     tags: tags
   }
@@ -122,16 +123,10 @@ end
 
 warn "Processed #{items.size} books"
 
-# warn items
-
 lastauthor = ""
 
-tex = IO.read(tex_template)
-template = ERB.new(tex, 0, "%<>")
+tex = File.read(tex_template)
+template = ERB.new(tex, trim_mode: "%<>")
 catalogue = template.result
 
-# puts catalogue
-
-File.open(output_file, "w") do |f|
-  f.write(catalogue)
-end
+File.write(output_file, catalogue)
