@@ -24,15 +24,15 @@
 
 \begin{longtable}{p{0.66\textwidth} l}
 
-<% items.sort_by{ |a| [ a[:author], a[:title] ]}.each do |i| %>
+<% items.sort_by{ |a| [ a[:author_line], a[:title] ]}.each do |i| %>
 
-<% if i[:author] == lastauthor %>------------<% else %>{\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}}<% end %>
+<% if i[:latex_author_line] == lastauthor %>------------<% else %>{\MakeUppercase{\textsf{\textbf{<%= i[:latex_author_line] %>}}}}<% end %>
 \hspace{2em}<%= i[:title] %>
 \newline
 <% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
 <% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
 <% # \hspace{1em} %>
-<% lastauthor = i[:author] %>
+<% lastauthor = i[:latex_author_line] %>
 
 &
 
@@ -54,13 +54,13 @@
 
 <%= i[:ddc] %>
 \newline
-<% if i[:author] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:author] %>}}}<% end %>
+<% if i[:latex_author_line] == lastauthor %>------------<% else %>\MakeUppercase{\textsf{\textbf{<%= i[:latex_author_line] %>}}}<% end %>
 \hspace{1em}\textsf{<%= i[:title] %>}
 \newline
 <% unless i[:publication] == "" %>\textit{<%= i[:publication] %>}\newline<% end %>
 <% unless i[:tags] == "" %>\textsc{<%= i[:tags] %>}\newline<% end %>
 
-<% lastauthor = i[:author] %>
+<% lastauthor = i[:latex_author_line] %>
 
 <% end %>
 

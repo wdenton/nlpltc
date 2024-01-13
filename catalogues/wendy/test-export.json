@@ -1,0 +1,304 @@
+{
+    "151100044": {
+	"books_id": "151100044",
+	"title": "The Great Adventure: 100 Years at The Arts & Letters Club",
+	"sortcharacter": "5",
+	"public": "true",
+	"primaryauthor": "McBurney, Margaret",
+	"secondaryauthor": "Schabas, Ann",
+	"secondaryauthorroles": "Editor",
+	"authors": [{
+	    "lf": "McBurney, Margaret",
+	    "fl": "Margaret McBurney"
+	},
+		    {
+			"lf": "Schabas, Ann",
+			"fl": "Ann Schabas",
+			"role": "Editor"
+		    }],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"originalisbn": "9780969458821",
+	"isbn": ["9780969458821",
+		 "0969458827"],
+	"publication": "Toronto: Arts & Letters Club of Toronto",
+	"date": "2007",
+	"summary": "The Great Adventure: 100 Years at The Arts & Letters Club by Margaret McBurney (2007)",
+	"language": ["English"],
+	"language_codeA": ["eng"],
+	"originallanguage_codeA": ["eng"],
+	"ddc": {
+	    "code": ["706 ALC MCBU",
+		     "706"],
+	    "wording": ["Modified subdivisions of the arts",
+			"Organizations and management of fine and decorative arts",
+			"The arts"]
+	},
+	"lcc": {
+	    "code": "HS2735.T67 M35"
+	},
+        "source": "Canadian National Catalogue",
+	"workcode": "10741572",
+	"entrydate": "2018-02-05",
+	"format": [{
+	    "code": "1.1.2",
+	    "text": "Hardcover"
+	}],
+	"copies": "1",
+	"volumes": "1",
+	"physical_description": "xv, 191 p.; 24 cm",
+	"height": "24 cm",
+	"dimensions": "24 cm",
+	"pages": "xv; 191 "
+    },
+    "162896182": {
+	"books_id": "162896182",
+	"title": "Crackerjack Umbrella",
+	"sortcharacter": "1",
+	"public": "true",
+	"primaryauthor": "Jenoff, Marvyne",
+	"authors": [{
+	    "lf": "Jenoff, Marvyne",
+	    "fl": "Marvyne Jenoff"
+	}],
+	"tags": ["inscribed"],
+	"tagidA": [12304],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"originalisbn": "9780973990348",
+	"isbn": ["9780973990348",
+		 "0973990341"],
+	"publication": "Toronto: Twoffish Press",
+	"date": "2008",
+	"summary": "Crackerjack Umbrella by Marvyne Jenoff (2008)",
+	"ddc": {
+	    "code": ["POE JENOFF"]
+	},
+	"lcc": {
+	    "code": "PS8569.C73"
+	},
+	"genre": ["Fiction"],
+	"genre_id": ["17160326"],
+	"source": "manual entry",
+	"workcode": "7060165",
+	"entrydate": "2018-11-30",
+	"format": [{
+	    "code": "1.1.1",
+	    "text": "Paperback"
+	}],
+	"copies": "1",
+	"volumes": "1"
+    },
+    "162896321": {
+	"books_id": "162896321",
+	"title": "Hercules By My Side",
+	"sortcharacter": "1",
+	"public": "true",
+	"primaryauthor": "Jenoff, Marvyne",
+	"authors": [{
+	    "lf": "Jenoff, Marvyne",
+	    "fl": "Marvyne Jenoff"
+	}],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"originalisbn": "0973990325",
+	"isbn": {
+	    "0": "0973990325",
+	    "2": "9780973990324"
+	},
+	"publication": "Toronto: Twoffish Press",
+	"date": "2006",
+	"summary": "Hercules By My Side by Marvyne Jenoff (2006)",
+	"ddc": {
+	    "code": ["FIC JENOFF"]
+	},
+	"lcc": [],
+	"genre": ["No Genre"],
+	"genre_id": ["10037570"],
+	"source": "manual entry",
+	"workcode": "22576168",
+	"entrydate": "2018-11-30",
+	"format": [{
+	    "code": "1.1.4",
+	    "text": "Pamphlet"
+	}],
+	"copies": "1",
+	"volumes": "1"
+    },
+    "154554708": {
+	"books_id": "154554708",
+	"title": "Canadian Crime Fiction: An Annotated Comprehensive Bibliography of Canadian Crime Fiction from 1817 to 1996, and Biographical Dictionary of Canadian Crime Writers, with an Introductory Essay on the History and Development of Canadian Crime Writing",
+	"sortcharacter": "1",
+	"public": "true",
+	"primaryauthor": "Skene-Melvin, David",
+	"secondaryauthor": "Spehner, Norbert",
+	"secondaryauthorroles": "Assistant",
+	"authors": [{
+	    "lf": "Skene-Melvin, David",
+	    "fl": "David Skene-Melvin"
+	},
+		    {
+			"lf": "Spehner, Norbert",
+			"fl": "Norbert Spehner",
+			"role": "Assistant"
+		    }],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"originalisbn": "1896648606",
+	"isbn": {
+	    "0": "1896648606",
+	    "2": "9781896648606"
+	},
+	"publication": "Shelburne ON: Battered Silicon Dispatch Box",
+	"date": "1996",
+	"summary": "Canadian Crime Fiction: An Annotated Comprehensive Bibliography of Canadian Crime Fiction from 1817 to 1996, and Biographical Dictionary of Canadian Crime Writers, with an Introductory Essay on the History and Development of Canadian Crime Writing by David Skene-Melvin (1996)",
+	"language": ["English"],
+	"language_codeA": ["eng"],
+	"originallanguage_codeA": ["eng"],
+	"ddc": {
+	    "code": ["016 SKE 1996",
+		     "016"],
+	    "wording": ["Bibliographies",
+			"Bibliographies and catalogs of works on specific subjects",
+			"Information"]
+	},
+	"lcc": {
+	    "code": "016.81932 S44"
+	},
+	"subject": [["Canadian fiction Bibliography"],
+		    ["Detective and mystery stories, Canadian Bibliography"],
+		    ["Novelists, Canadian Biography Dictionaries"]],
+	"source": "Toronto Public Library",
+	"workcode": "711244",
+	"entrydate": "2018-04-02",
+	"format": [{
+	    "code": "1.1.2",
+	    "text": "Hardcover"
+	}],
+	"copies": "1",
+	"volumes": "1",
+	"physical_description": "xxxi, 440 p.; 28 cm",
+	"height": "28 cm",
+	"dimensions": "28 cm",
+	"pages": "xxxi; 440 "
+    },
+    "123495364": {
+	"books_id": "123495364",
+	"title": "Shakespeare for Young Players: A Junior Course",
+	"sortcharacter": "1",
+	"public": "true",
+	"primaryauthor": "Davies, Robertson",
+	"primaryauthorrole": "Author",
+	"secondaryauthor": "MacDonald, Grant",
+	"secondaryauthorroles": "Illustrator",
+	"authors": [{
+	    "lf": "Davies, Robertson",
+	    "fl": "Robertson Davies",
+	    "role": "Author"
+	},
+		    {
+			"lf": "MacDonald, Grant",
+			"fl": "Grant MacDonald",
+			"role": "Illustrator"
+		    }],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"publication": "Toronto: Clarke, Irwin",
+	"date": "1942",
+	"summary": "Shakespeare for Young Players: A Junior Course by Robertson Davies (1942)",
+	"language": ["English"],
+	"language_codeA": ["eng"],
+	"originallanguage_codeA": ["eng"],
+	"ddc": {
+	    "code": ["DRAM DAVIES"]
+	},
+	"lcc": {
+	    "code": "PR2768.D25 1942"
+	},
+	"genre": ["Fiction"],
+	"genre_id": ["17160326"],
+	"source": "Library of Congress",
+	"lccn": "43001350",
+	"workcode": "931817",
+	"entrydate": "2015-11-20",
+	"format": [{
+	    "code": "1.1.2",
+	    "text": "Hardcover"
+	}],
+	"copies": "1",
+	"volumes": "1",
+	"physical_description": "xv, 255 p.; 20 cm",
+	"height": "20 cm",
+	"dimensions": "20 cm",
+	"pages": "xv; 255 "
+    },
+    "155025844": {
+	"books_id": "155025844",
+	"title": "Magic Lies: The Art of W.O. Mitchell",
+	"sortcharacter": "1",
+	"public": "true",
+	"primaryauthor": "Latham, Sheila",
+	"primaryauthorrole": "Editor",
+	"secondaryauthor": "Latham, David",
+	"secondaryauthorroles": "Editor",
+	"authors": [{
+	    "lf": "Latham, Sheila",
+	    "fl": "Sheila Latham",
+	    "role": "Editor"
+	},
+		    {
+			"lf": "Latham, David",
+			"fl": "David Latham",
+			"role": "Editor"
+		    }],
+	"collections_idA": [1],
+	"collections": ["Your library"],
+	"originalisbn": "0802009670",
+	"isbn": {
+	    "0": "0802009670",
+	    "2": "9780802009678"
+	},
+	"publication": "Toronto: University of Toronto Press",
+	"date": "1997",
+	"summary": "Magic Lies: The Art of W.O. Mitchell by Sheila Latham (1997)",
+	"language": ["English"],
+	"language_codeA": ["eng"],
+	"originallanguage_codeA": ["eng"],
+	"ddc": {
+	    "code": ["819 MIT LAT",
+		     "819"],
+	    "wording": ["American literature in English outside the USA (optional)",
+			"English (North America)",
+			"Literature"]
+	},
+	"lcc": {
+	    "code": "PR9199.3.M54Z77 1997"
+	},
+	"subject": [["Canada In literature"],
+		    ["Canada in literature"],
+		    ["Literature and folklore Canada History"],
+		    ["Mitchell, W. O. Criticism and interpretation. 1914-1998"],
+		    ["National characteristics, Canadian, in literature"]],
+	"genre": ["Fiction",
+		  "Literature Studies and Criticism"],
+	"genre_id": ["17160326",
+		     "53740"],
+	"source": "Toronto Public Library",
+	"lccn": "97222194",
+	"workcode": "10063461",
+	"entrydate": "2018-04-16",
+	"format": [{
+	    "code": "1.1.2",
+	    "text": "Hardcover"
+	}],
+	"copies": "1",
+	"volumes": "1",
+	"physical_description": "xi, 359 p.; 23 cm",
+	"height": "23 cm",
+	"thickness": "1.25 inches",
+	"length": "6 inches",
+	"dimensions": "23 x 6 x 1.25 cm",
+	"weight": "1.5 pounds",
+	"pages": "xi; 359 "
+    }
+}
