@@ -1,37 +1,57 @@
 #+title: nlpltc: Nice-Looking Printed LibraryThing Catalogue
 #+author: William Denton <william@williamdenton.org>
 
+#+options: num:nil toc:nil ^:nil
+
 * About
 
 This generates a nice-looking printed catalogue for a [[https://www.librarything.com/home#][LibraryThing]] library.
 
-Example:
+Example (from the [[https://artsandlettersclub.ca/][Arts and Letters Club of Toronto]] library):
 
 #+caption: Example from the Arts and Letters Club catalogue
 [[./nlpltc-sample.png]]
 
-* Usage
-
-First, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON export from your LibraryThing collection]].
-
-Then:
-
-+ TODO: update this step
-
-#   $ nlpltc your-lt-export.csv > catalogue.tex
-#  $ pdflatex catalogue.tex
-
-# That will produce =catalogue.pdf=.
-
 * Requirements
 
-LaTeX!  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
++ LaTeX!  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
++ [[https://www.ruby-lang.org/en/][Ruby]] (and some gems).
 
-Also [[https://www.ruby-lang.org/en/][Ruby]]. You will also need some gems, which you can install this way:
+* Installation
+
+Download the source tree and run the test to make sure it all works.
 
 #+begin_src shell
-bundle install
+git clone https://github.com/wdenton/nlpltc.git # Not using using your GitHub account
+git clone git@github.com:wdenton/nlpltc.git # Using your GitHub account
+cd nlpltc
+bundle install # To install necessary Ruby gems
+make test
 #+end_src
+
+Ignore the LaTeX warnings about overfull or underfull hboxes.  If it says =Transcript written on catalogues/test/test-catalogue.log= then it succeeded.  View =catalogue/test/test-catalogue.pdf= to see the example PDF.
+
+* Usage
+
+To make your own catalogue, make a copy of one of the two existing catalogues, and edit the =erb= template file as needed.  For example, this would set things up so you would have a new catalogue template to edit:
+
+#+begin_src shell
+cd catalogues
+cp -r test mylib
+cd mylib
+mv test.tex.erb mylib.tex.erb
+#+end_src
+
+Next, obtain a [[https://www.librarything.com/export.php?export_type=json][JSON export from your LibraryThing collection]].  We'll assume it's called =librarything_mylib.json=.  Move it into the =mycatalogue= directory.  Then from the top directory of this source tree, run
+
+#+begin_src shell
+./nlpltc -i catalogues/mylib/librarything_mylib.json -t catalogues/mylib/mylib.tex.erb -o catalogues/mylib/mylib-catalogue.tex
+pdflatex -output-directory catalogues/mylib mylib-catalogue.tex
+#+end_src
+
+Then view =catalogues/mylib/mylib-catalogue.pdf=.
+
+For regular use, edit =Makefile= and add an entry so you can just run ~make mylib~.
 
 * History
 
@@ -42,5 +62,4 @@ Thanks to Hackfest project partners: Ganga Dakshinamurti, Wendy Huot, and Rebecc
 * To Do
 
 + Automate the getting of the export file (if you know a cookie?)
-+ Make it look the way Wendy specified (fonts/indenting)
 + Do a subject listing, by tag
