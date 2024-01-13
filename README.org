@@ -65,7 +65,7 @@ Detailed formatting can be tricky because whitespace can sneak in, but if you kn
 
 * History
 
-Create at the Hackfest at the 2010 [[https://accessconference.ca/][Access conference]] (15 October 2010, Winnipeg MB) ([[https://web.archive.org/web/20110208015457/https://access2010.lib.umanitoba.ca/][Wayback Machine archive]]).  Thanks to Hackfest project partners Ganga Dakshinamurti, Wendy Huot and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at [[https://wiki.code4lib.org/North][Code4Lib North]] (6 May 2011, Hamilton ON).
+Created at the Hackfest at the 2010 [[https://accessconference.ca/][Access conference]] (15 October 2010, Winnipeg MB) ([[https://web.archive.org/web/20110208015457/https://access2010.lib.umanitoba.ca/][Wayback Machine archive]]).  Thanks to Hackfest project partners Ganga Dakshinamurti, Wendy Huot and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at [[https://wiki.code4lib.org/North][Code4Lib North]] (6 May 2011, Hamilton ON).
 
 * To Do
 
