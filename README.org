@@ -14,7 +14,7 @@ Example (generated from the [[https://artsandlettersclub.ca/][Arts and Letters C
 
 * Requirements
 
-+ LaTeX.  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
++ [[https://www.latex-project.org//][LaTeX]].  The [[https://www.tug.org/texlive/][TeX Live]] distribution should include everything you need.
 + [[https://www.ruby-lang.org/en/][Ruby]] (and some gems).
 
 * Installation
@@ -55,7 +55,7 @@ For regular use, edit =Makefile= and add a ~mylib~ entry so you can just run ~ma
 
 * Warning
 
-This uses the Ruby template system [[https://docs.ruby-lang.org/en/master/ERB.html][ERB]] so that we can have a LaTeX template with embedded Ruby code to handle situations where, for example, an author name is repeated and we want to "⸺⸺" instead of listing the name again.  This results in code such as:
+This uses the Ruby template system [[https://docs.ruby-lang.org/en/master/ERB.html][ERB]] so that we can have a LaTeX template with embedded Ruby code to handle situations where, for example, an author name is repeated and we want to use "⸺⸺" instead of listing the name again.  This results in code such as:
 
 #+begin_example
 <% if i[:latex_author_line] == lastauthor %>------------<% else %>{\MakeUppercase{\textsf{\textbf{<%= i[:latex_author_line] %>}}}}<% end %>
@@ -65,9 +65,7 @@ Detailed formatting can be tricky because whitespace can sneak in, but if you kn
 
 * History
 
-Written for the Hackfest at the 2010 [[https://accessconference.ca/][Access conference]] (15 October 2010, Winnipeg MB) ([[https://web.archive.org/web/20110208015457/https://access2010.lib.umanitoba.ca/][Wayback Machine archive]]).
-
-Thanks to Hackfest project partners: Ganga Dakshinamurti, Wendy Huot, and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at Code4Lib North (6 May 2011, Hamilton ON).
+Create at the Hackfest at the 2010 [[https://accessconference.ca/][Access conference]] (15 October 2010, Winnipeg MB) ([[https://web.archive.org/web/20110208015457/https://access2010.lib.umanitoba.ca/][Wayback Machine archive]]).  Thanks to Hackfest project partners Ganga Dakshinamurti, Wendy Huot and Rebecca Larocque. Chris Charles found and fixed a bug at Hackfest at [[https://wiki.code4lib.org/North][Code4Lib North]] (6 May 2011, Hamilton ON).
 
 * To Do
 
