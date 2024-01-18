@@ -69,6 +69,7 @@ Created at the Hackfest at the 2010 [[https://accessconference.ca/][Access confe
 
 * To Do
 
++ Test Unicode characters.
 + Allow ~nlpltc mylib~ or the like, and it all just works.
 + Automate the getting of the export file (if you know a cookie?).
 + Do a subject listing, by tag.
