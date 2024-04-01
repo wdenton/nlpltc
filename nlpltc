@@ -63,7 +63,7 @@ lt.each do |id|
   # Ebooks.  I'm trying this out by storing URLs in the comments field in the book metadata,
   # which I don't use for anything else.  Let's see if it could work.
   if book["tags"]
-    tags = book["tags"]
+    tags = book["tags"].join(", ")
     if book["tags"].include? "ebook"
       url = book["comment"]
     end
